@@ -4,7 +4,7 @@ Introduction
 ## My intro
 The related course comes with ready to use code. jQuery does not seem too difficult to understand provided you get to know the specific commands and possibilities given. That's why on this course I will not reproduce the code thouroughly but rather take notes in order to add the value of a more efficient reference. It does not mean to go farther than the related course.
 
-## What is jQuery
+## What is jQuery?
 jQuery was created by John Resig in 2006 and allows to make cross-browser compatible JS code. Before jQuery JS devs needed to ensure their code is compatible with the various versions of ECMA script.
 
 The general philosophy of jQuery is:
