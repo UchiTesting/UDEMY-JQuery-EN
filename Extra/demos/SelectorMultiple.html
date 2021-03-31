@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test 2</title></head>
+<style>
+	button { margin: 0 5px 10px 5px;}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<body bgcolor="gray">
+	<h1>Selectors and multiple selection demo</h1>
+	<p> This demo shows how selectors and multiple selection works. Bellow are a set of simple divs to which text content describe the respective classes applied to them. Buttons at the bottom of this page let you pick which set of elements should be highlighted.</p>
+	<div class="class1">Class 1</div>
+	<div class="class2">Class 2</div>
+	<div class="class1">Class 1</div>
+	<div class="class3">Class 3</div>
+	<div class="class3 class2">Class 2 and 3</div>
+	<div class="class3 class1">Class 1 and 3</div>
+	<div class="class2">Class 2</div>
+	<div class="class3">Class 3</div>
+	<div class="class1">Class 1</div>
+	<div attr1="10">Single attribute attr1:10 only</div>
+	<div attr1="10" attr2="default">Multiple attributes attr1:10 attr2:default</div>
+	<div attr1="11" attr2>Multiple attributes attr1:11 attr2 minimized</div>
+	<div style="margin-top: 10px;">
+	<button id="clear">C13412</button><br/>
+	<button id="showMultipleAttr1">Single attributes attr1</button>
+	<button id="showMultipleAttr">Multiple attributes attr1 and attr2</button>
+	<button id="showMultipleAttr11">Multiple attributes attr1 11 and attr2</button><br/>
+	<button id="showC1">C1</button>
+	<button id="showC2">C2</button>
+	<button id="showC1andC2">C1 and C2</button>
+	<button id="showC1notC3">C1 but not C3</button>
+	<button id="showC2notC3">C2 but not C3</button>
+	</div>
+	<script>
+	$(document).ready(function () {
+		// Clear
+		$("#clear").on('click', clear);
+
+		// Show element with both attr1 and attr2 present
+		$("#showMultipleAttr").on('click', function () {
+			clear();
+			highlight("[attr1][attr2]","yellow");
+		});
+
+		// Show element both attr1 value 10 and attr2 present
+		$("#showMultipleAttr11").on('click', function () {
+			clear();
+			highlight("[attr1='11'][attr2]","yellow");
+		});
+
+		// Show element both attr1 value 10 and attr2 present
+		$("#showMultipleAttr1").on('click', function () {
+			clear();
+			highlight("[attr1]","yellow");
+		});
+		
+		// Show C1
+		$("#showC1").on('click', function (){ 
+			clear();
+			highlight(".class1", "yellow");
+		});
+		
+		// Show C2
+		$("#showC2").on('click', function () {
+			clear();
+			$(".class2").css('background-color','yellow');
+		});
+		
+		// Show C1 and C2
+		$("#showC1andC2").on('click', function () {
+			clear();
+			$(".class1, .class2").css('background-color','yellow');
+		});
+
+		// Show C1 not C3 using native CSS selector
+		$("#showC1notC3").on('click', function () {
+			clear();
+			$(".class1:not(.class3)").css('background-color','yellow');
+		});
+
+		// Show C2 not C3 using jQuery methods
+			$("#showC2notC3").on('click', function () {
+			clear();
+			$(".class2").not(".class3").css('background-color','yellow');
+		});
+		
+		function highlight (selector, color) {
+			$(selector).css('background-color', color);
+		
+		}
+		
+		function clear () {
+			$("div").css('background-color','transparent');
+		}
+	});
+	</script>
+</body>
+</html>
