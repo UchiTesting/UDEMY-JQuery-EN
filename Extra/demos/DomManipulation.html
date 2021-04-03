@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<style>
+		#creatorAppend,  #creatorPrepend, 
+		#creatorAfter,#creatorBefore, #clearBtn {
+			background-color:royalblue;
+			color: silver;
+			font-weight: bold;
+			padding:1em;
+			border-radius:1em;
+			border:none;
+			margin-bottom: 1em;
+		}
+
+		#divContainer {
+			background-color: tomato;
+			padding:0;
+		}
+
+		// #testDelim {
+			// background-color: yellow;
+			// display:block;
+		// }
+
+		.result {
+			background-color: limegreen;
+		}
+	</style>
+</head>
+<body>
+	<button id="creatorPrepend">Create Prepend</button>
+	<button id="creatorAppend">Create Append</button>
+	<button id="creatorBefore">Create before</button>
+	<button id="creatorAfter">Create after</button>
+	<button id="clearBtn">Clear</button>
+
+	<div id="divContainer"><span id="testDelim">TEST</span></div>
+	<script>
+		$(document).ready(function() {
+			// CLEAR
+			$("#clearBtn").on('click', function () {
+				var container = $("#divContainer");
+				
+				container.empty();
+				//container.append("<span id=\"testDelim\">TEST</span>");
+				container.html("<span></span>"); //.attr("id","testDelim");
+				$("#divContainer span")
+				.html("TEST").attr("id","testDelim")
+				.css({
+					"background-color": "yellow",
+					"display": "block"
+				});
+				// .css("background-color","yellow")
+				// .css("display","block");
+				
+				
+			});
+			
+			// PREPEND
+			$('#creatorPrepend').on('click', function () {
+				var container = $("#divContainer");
+				
+				container.prepend("<div class='result'>"+new Date()+": PREPENDED</div>");
+			});
+			
+			// APPEND
+			$('#creatorAppend').on('click', function () {
+				var container = $("#divContainer");
+				container.append("<div class='result'>"+new Date()+": APPENDED</div>");
+			});
+			
+			/////////////////////////
+
+			// BEFORE
+			$('#creatorBefore').on('click', function (event) {
+				var delimiterItem = $("#testDelim");
+
+				delimiterItem.before("<div class='result'>"+new Date()+": BEFORE</div>");
+				//event.StopPropagation();
+			});
+	  
+			// AFTER
+			$('#creatorAfter').on('click', function (event) {
+				var delimiterItem = $("#testDelim");
+		
+				delimiterItem.after("<div class='result'>"+new Date()+": AFTER</div>");
+				//event.StopPropagation();
+			});
+		});
+	</script>
+</body>
+</html>
+
