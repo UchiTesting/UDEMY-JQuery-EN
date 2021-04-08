@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<style>
+        body {
+            margin: 0;
+            background-color: black;
+        }
+        .bigContainer{
+            /* Flex */
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            /* Appearence */
+            background-color: chartreuse;
+            margin: auto;
+            width:100%;
+            padding-top: 20px;
+            height: 150px;
+        }
+		.container {
+			background-color: limegreen;
+            margin: 0;
+            width: 300px;
+            border:  solid 1px red;
+		}
+        .moreInfo{
+            display: none;
+        }
+
+        .moreInfoShow{}
+
+        .fadeShow{}
+        .fadeHide{display: none;}
+
+        h2, .flexLine {
+            flex-basis: 100%;
+        }
+
+        .animateBox {
+            background-color: burlywood;
+            width: 100px;
+            height: 100px;
+            padding: 50px;
+            text-align: center;
+        }
+        .animateBox>p {
+            transform: translateY(20%);
+        }
+	</style>
+</head>
+<body>
+    <div class="bigContainer">
+        <h2>Hide, show, toggle</h2>
+        <div class="container">
+            <div>The button will show more info.</div>
+            <button class="showButton">More info</button>
+            <div class="moreInfo">Some more content.</div>
+        </div>
+        <div class="container">
+            <div>This button will hide the extra info.</div>
+            <button class="hideButton">More info</button>
+            <div class="moreInfoShow">Some more content 2.</div>
+        </div>
+        <div class="container">
+            <div>This button will toggle extra info display.</div>
+            <button class="toggleButton">More info</button>
+            <div class="moreInfo">Some more content 3.</div>
+        </div>
+    </div>
+    <hr/>
+    <div class="bigContainer">
+        <h2>Fade in/out/toggle</h2>
+        <div class="flexLine">
+            <button id="fadeInBtn">Fade in container 1</button>
+            <button id="fadeOutBtn">Fade out container 2</button>
+            <button id="fadeToggleBtn">Toggle container 3</button>
+        </div>
+        <div id="fadeIn" class="container fadeHide">
+            <div>This has fade in.</div>
+        </div>
+        <div id="fadeOut" class="container">
+            <div class="fadeShow">This will fade out.</div>
+        </div>
+        <div id="fadeToggle" class="container">
+            <div class="fadeShow">This may toggle.</div>
+        </div>
+    </div>
+    <hr />
+    <div class="bigContainer">
+        <h2>Slide up/down/toggle</h2>
+        <div class="flexLine">
+            <button id="slideUpBtn">Slide up container 1</button>
+            <button id="slideDownBtn">Fade out container 2</button>
+            <button id="slideToggleBtn">Toggle container 3</button>
+        </div>
+        <div id="slideUp" class="container">
+            <div>This has slide up.</div>
+        </div>
+        <div id="slideDown" class="container fadeHide">
+            <div class="fadeShow">This will slide down.</div>
+        </div>
+        <div id="slideToggle" class="container">
+            <div class="fadeShow">This may slide toggle.</div>
+        </div>
+    </div>
+    <hr />
+    <div class="bigContainer">
+        <h2>Animate</h2>
+        <div class="flexLine"><button id="rotateJsBtn">Rotate with jQuery</button></div>
+        <div class="flexLine"><button id="rotateAnimateBtn">Rotate with animate</button></div>
+        <div class="flexLine"><button id="opacityBtn">Opacity</button></div>
+        <div class="animateBox">
+            <p>Animate <br/><br/> me!</p>
+        </div>
+    </div>
+	<script>
+		$(document).ready(function() {
+			$(".container").on('click', '.showButton', function () {
+                let item = $(this).siblings(".moreInfo");
+                console.log(item);
+                item.show(1500, function () {
+                    console.log("Show button clicked.");
+                });
+			});
+            $(".container").on('click', '.hideButton', function () {
+                let item = $(this).siblings(".moreInfoShow");
+                console.log(item);
+                item.hide('fast', function () {
+                    console.log("Hide button clicked.");
+                });
+			});
+            $(".container").on('click', '.toggleButton', function () {
+                let item = $(this).siblings(".moreInfo");
+                console.log(item);
+                item.toggle('slow', function (){
+                    console.log("Toggle button clicked.");
+                });
+			});
+
+            // Fade
+            $("#fadeInBtn").on('click',function () {
+                console.log("Fade in button clicked.");
+                let item = $("#fadeIn");
+                item.fadeIn();
+            });
+            $("#fadeOutBtn").on('click',function () {
+                console.log("Fade out button clicked.");
+
+                let item = $("#fadeOut");
+                item.fadeOut();
+            });
+            $("#fadeToggleBtn").on('click',function () {
+                console.log("Fade Toggle button clicked.");
+
+                let item = $("#fadeToggle");
+                item.fadeToggle();
+            });
+
+            // Slide
+            $("#slideUpBtn").on('click',function () {
+                console.log("Slide up button clicked.");
+                let item = $("#slideUp");
+                item.slideUp();
+            });
+            $("#slideDownBtn").on('click',function () {
+                console.log("Slide down button clicked.");
+
+                let item = $("#slideDown");
+                item.slideDown();
+            });
+            $("#slideToggleBtn").on('click',function () {
+                console.log("Slide Toggle button clicked.");
+
+                let item = $("#slideToggle");
+                item.slideToggle();
+            });
+
+            // Animate
+
+            var rotation = 0;
+
+            jQuery.fn.rotate = function (degrees) {
+                let deg = $(this).css("transform");
+                console.log("deg: ", deg);
+                $(this).css({
+                    'transform': 'rotate(' + degrees + 'deg)'
+                });
+                return $(this);
+            };
+
+            $('#rotateJsBtn').click(function () {
+                console.log("ROTATE");
+                rotation += 5;
+                $(".animateBox").rotate(rotation);
+            });
+            
+            // Rotate with animate
+            var angle = 0;
+
+            $('#rotateAnimateBtn').click(function () {
+                let item = $(".animateBox");
+                
+                angle = angle + 90;
+                console.log("ROTATE ANIMATE ", angle);
+                
+                $({ FUCK: angle - 90 }).animate({ FUCK: angle }, {
+                    duration: 1000,
+                    
+                    step: function (now) {
+                        item.css({
+                            transform: 'rotate(' + now + 'deg)'
+                        });
+                    }
+                });
+            });
+
+
+            var isRaising = false;
+
+            $("#opacityBtn").on('click', function () {
+                let item = $(".animateBox");
+                let currentOpacity = item.css("opacity");
+
+                if (isRaising && currentOpacity == 1){
+                    isRaising = false;
+                }
+                else if (!isRaising && currentOpacity == 0){
+                    isRaising = true;
+                }
+
+                (isRaising)
+                    ? item.animate({
+                        opacity: '+=0.2'
+                    }, 1000, function () {
+                        console.log("Opacity raised...", item.css("opacity"));
+                    })
+                    : item.animate({
+                        opacity: '-=0.2'
+                    }, 1000, function () {
+                        console.log("Opacity fell...", item.css("opacity"));
+                    });
+
+            });
+		});
+	</script>
+</body>
+</html>
+
