@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<style>
+        html{
+            padding: 0;
+            /* background-color: dimgrey; */
+            background-image: radial-gradient(circle  farthest-side at 50% 50%, transparent , dimgrey);
+        }
+        form{
+            background-color: sandybrown;
+            padding: 10px 0 10px 3px;;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+		#container {
+			background-color: rebeccapurple;
+			padding: 10px;;
+		}
+        .element{
+            display: inline-block;
+            background-color: lightskyblue;
+            overflow: hidden;
+            margin: 10px;
+            width:30%;
+            vertical-align: top;
+            border-radius: 8px;
+        }
+
+        .itemNumber{
+            display: inline-block;
+            background-color: yellow;
+            border: solid rgba(0,0,0,0.2) 2px;
+            border-radius: 30px;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            margin-right: 20px;
+        }
+        .title{
+            background-color: lightseagreen;
+            padding: 10px;
+        }
+        .description{
+            margin: 15px;
+        }
+        .photo img{
+            position: relative;
+            bottom: -5px;;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .note {
+            display: inline-block;
+            background-color: sandybrown;
+            padding: 0.8em;
+            font-family: monospace;
+            font-weight: 700;
+        }
+
+        .darkenBorder {
+            border: solid rgba(0, 0, 0, 0.2) 2px;
+            border-radius: 8px;
+        }
+
+	</style>
+</head>
+<body>
+    <span class="note darkenBorder">
+        <p>Chose an API from the list at <a href="https://github.com/public-apis/public-apis">public-apis &commat;GitHub</a></p>
+        <p>API evolve in time. Should this not work. You will need to update the content.</p>
+    </span>
+    <form class="darkenBorder">
+        <label for="itemNumber">Number of items to display: </label>
+        <input id="itemNumber" value="3"/>
+        <button id="callAjax">Perform AJAX call</button>
+    </form>
+    <div id="container" class="darkenBorder">
+    </div>
+	<script>
+        
+        $(document).ready(function() {
+            let itemNumber = $("#itemNumber").val();
+            callAjax(itemNumber);
+            
+            $("#callAjax").on('click',function (event) {
+                itemNumber = $("#itemNumber").val();
+                event.preventDefault();
+                console.log(itemNumber);
+                callAjax(itemNumber);
+            });
+        
+        });
+
+        function callAjax(number){
+            var html ="";
+
+            if(number > 0){
+                var url = "https://fakerapi.it/api/v1/images?_quantity="+number+"&_type=kittens&_height=100"
+
+                $.ajax(url, {
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    cache:false
+                }).done(function (response){
+                    $.each(response.data, function (index, element){
+                        let title = element.title;
+                        let desc = element.description;
+                        let photoUrl = element.url;
+
+                        //console.log(index,element);
+
+                        thisHtml = `<span class="element">
+                                        <div class="title"><span class="itemNumber">${index+1}</span> ${title}</div>
+                                        <div class="description">${desc}</div>
+                                        <div class="photo"><img src="${photoUrl}" /></div>
+                                    </span>`;
+
+                        html += thisHtml;
+                        
+                        $("#container").html(html);                        
+                    });
+                    
+                })
+                .fail(function (request, errorType, errorMessage){
+                    alert(request+"\n"+errorType+"\n"+errorMessage);
+                });
+            } 
+            else {
+                $("#container").html("<p>Please provide a number above 0.</p>");
+            }
+
+            
+        }
+	</script>
+</body>
+</html>
