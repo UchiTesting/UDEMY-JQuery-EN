@@ -38,4 +38,9 @@ The `animate()` method has 3 parameters
 - duration
 - callback function upon completion.
 
+Values can be numbers. 
+Default unit is pixel.
+If we need to precise the unit, we put the value in quotes.
+We can also use quotes to pass relative values such as `'+=0.2'` for instance.
+
 More info about `animate()` [@jQuery official doc](https://api.jquery.com/animate/)
