@@ -4,11 +4,11 @@ You can use the [editor on GitHub](https://github.com/UchiTesting/UDEMY-JQuery-E
 
 ## Available demos
 
-[AJAX HTTP GET](demos/AjaxGet.html)
-[AJAX HTTP POST](demos/AjaxPost.html)
-[Animations](demos/Animations.html)
-[DOM manipulation](demos/DomManipulation.html)
-[Selectors](demos/SelectorMultiple.html)
+- [AJAX HTTP GET](demos/AjaxGet.html)  
+- [AJAX HTTP POST](demos/AjaxPost.html)  
+- [Animations](demos/Animations.html)  
+- [DOM manipulation](demos/DomManipulation.html)  
+- [Selectors](demos/SelectorMultiple.html)  
 
 
 
